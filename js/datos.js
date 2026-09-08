@@ -26,7 +26,7 @@ var PRODUCTOS = [
         precio: 12000,
         stock: 200,
         stockCritico: 30,
-        imagen: 'https://images.unsplash.com/photo-1711114474566-7507ed4d6716?w=500'
+        imagen: 'img/gas11.jpg'
     },
     {
         codigo: 'CL003',
@@ -56,7 +56,7 @@ var PRODUCTOS = [
         precio: 8990,
         stock: 45,
         stockCritico: 10,
-        imagen: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500'
+        imagen: 'img/regulador.webp'
     },
     {
         codigo: 'RG002',
@@ -66,7 +66,7 @@ var PRODUCTOS = [
         precio: 18990,
         stock: 12,
         stockCritico: 5,
-        imagen: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500'
+        imagen: 'img/regulador.altapresion.webp'
     },
     {
         codigo: 'RG003',
@@ -76,7 +76,7 @@ var PRODUCTOS = [
         precio: 14990,
         stock: 18,
         stockCritico: 5,
-        imagen: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500'
+        imagen: 'img/regulador.dual.webp'
     },
     {
         codigo: 'MG001',
@@ -86,7 +86,7 @@ var PRODUCTOS = [
         precio: 3990,
         stock: 80,
         stockCritico: 15,
-        imagen: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500'
+        imagen: 'img/manguera-gas-1.5m.jpg'
     },
     {
         codigo: 'MG002',
@@ -96,7 +96,7 @@ var PRODUCTOS = [
         precio: 6990,
         stock: 50,
         stockCritico: 10,
-        imagen: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500'
+        imagen: 'img/mangera3metros.webp'
     },
     {
         codigo: 'MG003',
@@ -106,7 +106,7 @@ var PRODUCTOS = [
         precio: 990,
         stock: 200,
         stockCritico: 40,
-        imagen: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500'
+        imagen: 'img/abrazadera.webp'
     },
     {
         codigo: 'MG004',
@@ -176,8 +176,8 @@ var REGIONES = [
 var USUARIOS_SEMILLA = [
     {
         run: '111111111',
-        nombre: 'Ana',
-        apellidos: 'Pérez Rojas',
+        nombre: 'Benjamín',
+        apellidos: 'Alegria Rojas',
         correo: 'admin@duoc.cl',
         contrasena: 'admin123',
         region: 'Región de Ñuble',
@@ -187,8 +187,8 @@ var USUARIOS_SEMILLA = [
     },
     {
         run: '222222222',
-        nombre: 'Pedro',
-        apellidos: 'Sánchez López',
+        nombre: 'Natalia',
+        apellidos: 'Varela López',
         correo: 'vendedor@duoc.cl',
         contrasena: 'vende123',
         region: 'Región de Ñuble',
