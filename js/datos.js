@@ -6,7 +6,7 @@
 // backend, tal como pide el enunciado ("crear un arreglo
 // de productos... mostrar los productos del arreglo").
 // =========================================================
-
+//Simulacion de base de datos local
 var PRODUCTOS = [
     {
         codigo: 'CL001',
