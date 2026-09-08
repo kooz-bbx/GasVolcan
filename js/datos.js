@@ -16,7 +16,7 @@ var PRODUCTOS = [
         precio: 6500,
         stock: 80,
         stockCritico: 15,
-        imagen: 'https://images.unsplash.com/photo-1711114474566-7507ed4d6716?w=500'
+        imagen: 'img/gas5.jpg'
     },
     {
         codigo: 'CL002',
