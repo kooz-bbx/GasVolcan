@@ -1,7 +1,7 @@
-/* =============================================
+/* ===========================================
    DISTRIBUIDORA DE GAS EL VOLCÁN - style.css
    Basado en el patrón de estilos visto en clases
-   ============================================= */
+   =========================================== */
 
 /* ----- ESTILOS GENERALES ----- */
 body {
@@ -47,7 +47,7 @@ header p {
     font-weight: bold;
 }
 
-/* ----- MENÚ DE NAVEGACIÓN ----- */
+/* ----- MENÚ DE NAVEGACIÓN ---- */
 .nav-menu {
     display: flex;
     justify-content: center;

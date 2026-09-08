@@ -153,7 +153,7 @@ var PRODUCTOS = [
 
 // Regiones y comunas de ejemplo, usadas en Registro (tienda)
 // y en Nuevo/Editar Usuario (administrador). Al elegir una
-// region se filtran solo las comunas de esa region.
+// region se filtran solo las comunas de esa region
 var REGIONES = [
     {
         region: 'Región Metropolitana de Santiago',

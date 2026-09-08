@@ -15,7 +15,7 @@ var PRECIOS_CILINDRO = {
     '15kg': 31000
 };
 
-// Dominios de correo permitidos (regla de negocio de la rubrica)
+// Dominios de correo permitidos (regla de negocio de la rubricaa)
 var DOMINIOS_PERMITIDOS = ['duoc.cl', 'profesor.duoc.cl', 'gmail.com'];
 
 
