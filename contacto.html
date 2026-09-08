@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuidora de Gas El Volcán - Contacto</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- BOOTSTRAP ICONS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS EXTERNO -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== ENCABEZADO ===== -->
+        <header>
+            <h1>
+                <i class="bi bi-fire"></i>
+                <span id="logo-empresa">Gas El Volcán</span>
+            </h1>
+            <p>Estamos aquí para ayudarte</p>
+
+            <!-- MENU -->
+                        <nav class="nav-menu">
+                <a href="index.html">
+                    <i class="bi bi-house"></i> Inicio
+                </a>
+                <a href="productos.html">
+                    <i class="bi bi-box-seam"></i> Productos
+                </a>
+                <a href="nosotros.html">
+                    <i class="bi bi-building"></i> Nosotros
+                </a>
+                <a href="blogs.html">
+                    <i class="bi bi-newspaper"></i> Blogs
+                </a>
+                <a href="pedido.html">
+                    <i class="bi bi-cart"></i> Pedido Rápido
+                </a>
+                <a href="seguimiento.html">
+                    <i class="bi bi-truck"></i> Seguimiento
+                </a>
+                <a href="contacto.html" class="active">
+                    <i class="bi bi-envelope"></i> Contacto
+                </a>
+                <a href="carrito.html">
+                    <i class="bi bi-cart3"></i> Carrito (<span id="contador-carrito">0</span>)
+                </a>
+                <a id="nav-login" href="login.html">
+                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                </a>
+            </nav>
+        </header>
+
+        <!-- ===== FORMULARIO DE CONTACTO ===== -->
+        <section>
+            <h2><i class="bi bi-chat-dots"></i> Formulario de Contacto</h2>
+            <p>¿Tienes una consulta o reclamo? Completa el formulario y te responderemos a la brevedad.</p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- FORMULARIO -->
+                    <form id="formularioContacto">
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-person"></i> Nombre Completo</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ej: María González" maxlength="100">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="nombre@duoc.cl" maxlength="100">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-phone"></i> Teléfono (opcional)</label>
+                            <input type="tel" class="form-control" id="telefono" value="+56 9" placeholder="+56 9 1234 5678" maxlength="14" data-opcional="true" oninput="limitarTelefono(this)">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-tag"></i> Asunto (opcional)</label>
+                            <select class="form-select" id="asunto" data-opcional="true">
+                                <option value="">Selecciona un motivo</option>
+                                <option value="consulta">Consulta general</option>
+                                <option value="pedido">Sobre mi pedido</option>
+                                <option value="reclamo">Reclamo</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-chat-square-text"></i> Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="4" maxlength="500" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+
+                        <!-- DONDE SE MUESTRA EL RESULTADO DE VALIDACION -->
+                        <div id="resultado-validacion"></div>
+
+                        <div class="d-flex gap-3 mt-3">
+                            <!-- BOTON VALIDAR - Llama a funciones.js -->
+                            <button type="button" class="btn-enviar" onclick="validarFormulario('formularioContacto')">
+                                <i class="bi bi-send"></i> Enviar
+                            </button>
+
+                            <!-- BOTON LIMPIAR - Llama a funciones.js -->
+                            <button type="button" class="btn-limpiar" onclick="resetearFormulario('formularioContacto')">
+                                <i class="bi bi-eraser"></i> Limpiar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- INFORMACION DE CONTACTO -->
+                <div class="col-md-4">
+                    <div class="contact-info">
+                        <h5><i class="bi bi-geo-alt"></i> Dirección</h5>
+                        <p>Chillán, Región de Ñuble, Chile</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h5><i class="bi bi-telephone"></i> Teléfono</h5>
+                        <p>+56 42 123 4567</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h5><i class="bi bi-clock"></i> Horario</h5>
+                        <p>Lun-Sáb: 8:30 - 19:00</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h5><i class="bi bi-envelope"></i> Email</h5>
+                        <p>contacto@gaselvolcan.cl</p>
+                    </div>
+
+                    <iframe class="mapa-iframe"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.5!2d-72.1025!3d-36.6067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sChill%C3%A1n%2C%20Chile!5e0!3m2!1ses!2scl!4v1699999999999">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PIE ===== -->
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Todos los derechos reservados
+        </footer>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FUNCIONES.JS -->
+    <script src="js/datos.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>

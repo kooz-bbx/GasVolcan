@@ -1,0 +1,566 @@
+/* =============================================
+   DISTRIBUIDORA DE GAS EL VOLCÁN - style.css
+   Basado en el patrón de estilos visto en clases
+   ============================================= */
+
+/* ----- ESTILOS GENERALES ----- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- ENCABEZADO ----- */
+header {
+    background-color: #E65100;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.1rem;
+    margin: 5px 0 0 0;
+}
+
+#logo-empresa {
+    color: #FFD54F;
+    font-weight: bold;
+}
+
+/* ----- MENÚ DE NAVEGACIÓN ----- */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    flex-wrap: wrap;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 6px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFD54F;
+}
+
+.nav-menu a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFD54F;
+    font-weight: 600;
+}
+
+.nav-menu a i {
+    font-size: 1.1rem;
+}
+
+/* ----- SECCIONES ----- */
+section {
+    background-color: white;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #E65100;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+    color: #BF360C;
+    font-size: 1.6rem;
+    border-bottom: 2px solid #E65100;
+    padding-bottom: 8px;
+}
+
+section h3 {
+    color: #D84315;
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+/* ----- DESTACADO ----- */
+.destacado {
+    background-color: #FFF3E0;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* ----- IMÁGENES ----- */
+section img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border: 2px solid #E65100;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: block;
+}
+
+/* ----- TARJETAS DE CILINDRO ----- */
+.cilindro-card {
+    background-color: #FFF8E1;
+    border: 2px solid #FFB300;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.cilindro-card .kg {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #E65100;
+}
+
+/* ----- TARJETAS DE ACTORES ----- */
+.actor-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #E65100;
+    height: 100%;
+}
+
+.actor-card h5 {
+    color: #BF360C;
+    margin-bottom: 8px;
+}
+
+/* ----- INFORMACIÓN DE CONTACTO ----- */
+.contact-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #E65100;
+}
+
+.contact-info h5 {
+    margin: 0 0 5px 0;
+}
+
+.contact-info h5 i {
+    color: #E65100;
+    margin-right: 10px;
+}
+
+.contact-info p {
+    margin: 0;
+    padding-left: 30px;
+}
+
+.mapa-iframe {
+    width: 100%;
+    height: 250px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* ----- PIE DE PÁGINA ----- */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    margin-top: 20px;
+}
+
+/* ----- AVISO DE ALCANCE (académico) ----- */
+.aviso-alcance {
+    background-color: #E3F2FD;
+    color: #0D47A1;
+    padding: 12px 15px;
+    border-radius: 4px;
+    border-left: 4px solid #1976D2;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* ----- BADGES DE ESTADO ----- */
+.badge-estado {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-estado.entregado { background-color: #4CAF50; color: white; }
+.badge-estado.pendiente { background-color: #FF9800; color: white; }
+.badge-estado.en-camino { background-color: #2196F3; color: white; }
+.badge-estado.cancelado { background-color: #f44336; color: white; }
+
+/* ----- FORMULARIO ----- */
+.form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #E65100;
+    box-shadow: 0 0 0 0.2rem rgba(230, 81, 0, 0.25);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 5px;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 4px solid #28a745;
+}
+
+.btn-enviar {
+    background-color: #E65100;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background-color: #BF360C;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-limpiar:hover {
+    background-color: #5a6268;
+}
+
+/* ----- TABLA DE SEGUIMIENTO ----- */
+.tabla-pedidos th {
+    background-color: #E65100;
+    color: white;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    section {
+        padding: 10px 15px;
+    }
+    section img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    header h1 {
+        font-size: 1.4rem;
+    }
+    .container {
+        width: 98%;
+        padding: 5px;
+        margin: 5px auto;
+    }
+    .nav-menu {
+        gap: 8px;
+    }
+    .nav-menu a {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    .btn-enviar, .btn-limpiar {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* =============================================
+   TIENDA - PRODUCTOS
+   ============================================= */
+
+.producto-card {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+}
+
+.producto-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.producto-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.producto-card h5 {
+    color: #BF360C;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.producto-card .precio {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #E65100;
+    margin: 8px 0;
+}
+
+.producto-card .categoria-badge {
+    display: inline-block;
+    background-color: #FFF3E0;
+    color: #BF360C;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.producto-card .stock-critico {
+    color: #dc3545;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.producto-card .mt-auto {
+    margin-top: auto;
+}
+
+/* ----- VIDEO INSTITUCIONAL ----- */
+/* ----- BLOGS ----- */
+.blog-card {
+    background-color: #FFF8E1;
+    border-left: 4px solid #FFB300;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.blog-card h3 {
+    color: #BF360C;
+}
+
+.blog-card img {
+    max-width: 100%;
+    border: none;
+}
+
+/* ----- CARRITO ----- */
+.carrito-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.carrito-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: none;
+    margin: 0;
+}
+
+.carrito-item .carrito-info {
+    flex: 1;
+}
+
+.carrito-item .carrito-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carrito-item .carrito-cantidad button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #E65100;
+    background: white;
+    color: #E65100;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.carrito-item .carrito-cantidad input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.resumen-carrito {
+    background-color: #FFF3E0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* =============================================
+   PANEL ADMINISTRADOR
+   ============================================= */
+
+.admin-layout {
+    display: flex;
+    min-height: 80vh;
+}
+
+.admin-sidebar {
+    width: 220px;
+    background-color: #263238;
+    color: white;
+    padding: 20px 0;
+    flex-shrink: 0;
+    border-radius: 8px 0 0 8px;
+}
+
+.admin-sidebar .admin-logo {
+    text-align: center;
+    padding: 0 15px 20px 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 15px;
+}
+
+.admin-sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cfd8dc;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+    background-color: #37474F;
+    color: #FFD54F;
+    border-left: 3px solid #E65100;
+}
+
+.admin-contenido {
+    flex: 1;
+    padding: 25px;
+    background-color: #f5f5f5;
+    border-radius: 0 8px 8px 0;
+}
+
+.admin-contenido h2 {
+    color: #BF360C;
+    border-bottom: 2px solid #E65100;
+    padding-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+        border-radius: 8px 8px 0 0;
+    }
+    .admin-contenido {
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+.tabla-admin th {
+    background-color: #263238;
+    color: white;
+}
+
+.badge-rol {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-rol.administrador { background-color: #6A1B9A; }
+.badge-rol.vendedor { background-color: #00838F; }
+.badge-rol.cliente { background-color: #558B2F; }
+
+.badge-stock-critico {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+}

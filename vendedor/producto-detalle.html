@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas El Volcán - Vendedor - Detalle Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-proteger-vendedor>
+    <div class="container">
+        <header>
+            <h1><i class="bi bi-person-badge"></i> Panel Vendedor</h1>
+            <p>Detalle de Producto (solo lectura)</p>
+        </header>
+
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="admin-logo"><i class="bi bi-fire"></i> Gas El Volcán</div>
+                <a href="index.html"><i class="bi bi-house-door"></i> Home</a>
+                <a href="productos.html" class="active"><i class="bi bi-box-seam"></i> Productos</a>
+                <a href="pedidos.html"><i class="bi bi-receipt"></i> Pedidos</a>
+                <a href="#" onclick="cerrarSesion('../index.html'); return false;"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
+            </aside>
+            <div class="admin-contenido">
+                <p><a href="productos.html"><i class="bi bi-arrow-left"></i> Volver al listado</a></p>
+                <div class="row" id="detalle-vendedor-container">
+                    <!-- Se llena dinamicamente con JavaScript segun ?codigo= en la URL -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Panel Vendedor
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datos.js"></script>
+    <script src="../js/funciones.js"></script>
+</body>
+</html>

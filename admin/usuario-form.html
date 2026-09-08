@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas El Volcán - Nuevo/Editar Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-proteger-admin>
+    <div class="container">
+        <header>
+            <h1><i class="bi bi-speedometer2"></i> Panel Administrador</h1>
+            <p>Formulario de Usuario</p>
+        </header>
+
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="admin-logo"><i class="bi bi-fire"></i> Gas El Volcán</div>
+                <a href="index.html"><i class="bi bi-house-door"></i> Home</a>
+                <a href="productos.html"><i class="bi bi-box-seam"></i> Productos</a>
+                <a href="usuarios.html" class="active"><i class="bi bi-people"></i> Usuarios</a>
+                <a href="#" onclick="cerrarSesion('../index.html'); return false;"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
+            </aside>
+            <div class="admin-contenido">
+                <h2 id="titulo-formulario-usuario"><i class="bi bi-person-plus"></i> Nuevo Usuario</h2>
+
+                <form id="formularioUsuarioAdmin">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="run"><i class="bi bi-card-text"></i> RUN (sin puntos ni guión)</label>
+                            <input type="text" class="form-control" id="run" placeholder="Ej: 19011022K" maxlength="9">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="nombre"><i class="bi bi-person"></i> Nombre</label>
+                            <input type="text" class="form-control" id="nombre" maxlength="50" placeholder="Ej: María">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="apellidos"><i class="bi bi-person-lines-fill"></i> Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" maxlength="100" placeholder="Ej: González Soto">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="correo"><i class="bi bi-envelope"></i> Correo</label>
+                            <input type="email" class="form-control" id="correo" placeholder="nombre@duoc.cl">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="tipoUsuario"><i class="bi bi-person-badge"></i> Tipo de Usuario</label>
+                            <select class="form-select" id="tipoUsuario">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Vendedor">Vendedor</option>
+                                <option value="Cliente" selected>Cliente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="region"><i class="bi bi-map"></i> Región</label>
+                            <select class="form-select" id="region" onchange="actualizarComunas()">
+                                <option value="">Seleccione la región</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="comuna"><i class="bi bi-geo"></i> Comuna</label>
+                            <select class="form-select" id="comuna">
+                                <option value="">Seleccione primero una región</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="direccion"><i class="bi bi-geo-alt"></i> Dirección</label>
+                        <input type="text" class="form-control" id="direccion" maxlength="300" placeholder="Calle, número, referencia">
+                    </div>
+
+                    <div id="resultado-validacion"></div>
+
+                    <div class="d-flex gap-3 mt-3">
+                        <button type="button" class="btn-enviar" onclick="validarFormulario('formularioUsuarioAdmin')">
+                            <i class="bi bi-check-circle"></i> Guardar
+                        </button>
+                        <a href="usuarios.html" class="btn-limpiar" style="text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Panel Administrador
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datos.js"></script>
+    <script src="../js/funciones.js"></script>
+</body>
+</html>

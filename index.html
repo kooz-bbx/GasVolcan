@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuidora de Gas El Volcán - Inicio</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- BOOTSTRAP ICONS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS EXTERNO -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== ENCABEZADO ===== -->
+        <header>
+            <h1>
+                <i class="bi bi-fire"></i>
+                <span id="logo-empresa">Gas El Volcán</span>
+            </h1>
+            <p>Distribución de gas licuado a domicilio en Chillán y comunas aledañas</p>
+
+            <!-- MENU -->
+            <nav class="nav-menu">
+                <a href="index.html" class="active">
+                    <i class="bi bi-house"></i> Inicio
+                </a>
+                <a href="productos.html">
+                    <i class="bi bi-box-seam"></i> Productos
+                </a>
+                <a href="nosotros.html">
+                    <i class="bi bi-building"></i> Nosotros
+                </a>
+                <a href="blogs.html">
+                    <i class="bi bi-newspaper"></i> Blogs
+                </a>
+                <a href="pedido.html">
+                    <i class="bi bi-cart"></i> Pedido Rápido
+                </a>
+                <a href="seguimiento.html">
+                    <i class="bi bi-truck"></i> Seguimiento
+                </a>
+                <a href="contacto.html">
+                    <i class="bi bi-envelope"></i> Contacto
+                </a>
+                <a href="carrito.html">
+                    <i class="bi bi-cart3"></i> Carrito (<span id="contador-carrito">0</span>)
+                </a>
+                <a id="nav-login" href="login.html">
+                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                </a>
+            </nav>
+        </header>
+
+        <!-- ===== AVISO DE ALCANCE ACADEMICO ===== -->
+        <div class="aviso-alcance">
+            <i class="bi bi-info-circle"></i>
+            Esta es una maqueta de frontend hecha con HTML, CSS, Bootstrap y JavaScript (sin backend real).
+            El catálogo, el carrito, el pedido y el seguimiento se simulan localmente con
+            <code>localStorage</code>; no se conectan todavía a una API ni a una base de datos.
+        </div>
+
+        <!-- ===== PRESENTACION PRINCIPAL ===== -->
+        <section>
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2><i class="bi bi-fire"></i> Tienda Online de Gas y Accesorios</h2>
+                    <p>
+                        <strong>Distribuidora de Gas El Volcán</strong> es una empresa familiar ubicada en
+                        <strong>Chillán, Región de Ñuble</strong>, fundada en <strong>1998</strong>.
+                        Ahora puedes comprar cilindros, reguladores, mangueras y accesorios directamente
+                        desde nuestra tienda online.
+                    </p>
+                    <a href="productos.html" class="btn-enviar" style="text-decoration:none; display:inline-block;">
+                        <i class="bi bi-box-seam"></i> Ver productos
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <img src="https://images.unsplash.com/photo-1759044271138-6d2c871dd8ef?w=400" alt="Cilindros de gas" class="img-fluid">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRODUCTOS DESTACADOS ===== -->
+        <section>
+            <h2><i class="bi bi-star"></i> Productos Destacados</h2>
+            <p>Algunos de los productos más solicitados:</p>
+            <div class="row" id="destacados-container">
+                <!-- Se llena dinamicamente con JavaScript desde datos.js -->
+            </div>
+            <div class="text-center mt-3">
+                <a href="productos.html" class="btn-enviar" style="text-decoration:none; display:inline-block;">
+                    <i class="bi bi-grid"></i> Ver catálogo completo
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== POR QUE ELEGIRNOS ===== -->
+        <section>
+            <h2><i class="bi bi-patch-check"></i> ¿Por qué elegirnos?</h2>
+            <ul>
+                <li>Más de 25 años distribuyendo gas en la Región de Ñuble</li>
+                <li>Ahora puedes comprar y pedir gas sin llamar por teléfono</li>
+                <li>Sigue el estado de tu pedido desde tu celular</li>
+                <li>Pago en efectivo al momento de la entrega</li>
+            </ul>
+        </section>
+
+        <!-- ===== PIE ===== -->
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Todos los derechos reservados
+        </footer>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>

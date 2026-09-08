@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuidora de Gas El Volcán - Registro de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="bi bi-fire"></i> <span id="logo-empresa">Gas El Volcán</span></h1>
+            <p>Crea tu cuenta</p>
+            <nav class="nav-menu">
+                <a href="index.html"><i class="bi bi-house"></i> Inicio</a>
+                <a href="productos.html"><i class="bi bi-box-seam"></i> Productos</a>
+                <a href="nosotros.html"><i class="bi bi-building"></i> Nosotros</a>
+                <a href="blogs.html"><i class="bi bi-newspaper"></i> Blogs</a>
+                <a href="pedido.html"><i class="bi bi-cart"></i> Pedido Rápido</a>
+                <a href="seguimiento.html"><i class="bi bi-truck"></i> Seguimiento</a>
+                <a href="contacto.html"><i class="bi bi-envelope"></i> Contacto</a>
+                <a href="carrito.html"><i class="bi bi-cart3"></i> Carrito (<span id="contador-carrito">0</span>)</a>
+                <a id="nav-login" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Ingresar</a>
+            </nav>
+        </header>
+
+        <div class="aviso-alcance">
+            <i class="bi bi-info-circle"></i>
+            Este registro valida los datos con JavaScript (RUN, correo, contraseñas) y los guarda
+            en <code>localStorage</code>. No hay base de datos ni autenticación real todavía.
+        </div>
+
+        <section>
+            <h2><i class="bi bi-person-plus"></i> Registro de Usuario</h2>
+            <p>Regístrate para hacer seguimiento a tus pedidos y guardar tus direcciones.</p>
+
+            <form id="formularioRegistro">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="run"><i class="bi bi-card-text"></i> RUN (sin puntos ni guión)</label>
+                        <input type="text" class="form-control" id="run" placeholder="Ej: 19011022K" maxlength="9">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="nombre"><i class="bi bi-person"></i> Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ej: María">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="apellidos"><i class="bi bi-person-lines-fill"></i> Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" placeholder="Ej: González Soto">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="correo"><i class="bi bi-envelope"></i> Correo</label>
+                        <input type="email" class="form-control" id="correo" placeholder="nombre@duoc.cl">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="contrasena"><i class="bi bi-lock"></i> Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" placeholder="Entre 4 y 10 caracteres" maxlength="10">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="confirmarContrasena"><i class="bi bi-lock-fill"></i> Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="confirmarContrasena" placeholder="Repite tu contraseña" maxlength="10">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="fechaNacimiento"><i class="bi bi-calendar"></i> Fecha de Nacimiento (opcional)</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" data-opcional="true" min="1900-01-01" max="2005-12-31" onchange="corregirFechaNacimiento(this)">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="region"><i class="bi bi-map"></i> Región</label>
+                        <select class="form-select" id="region" onchange="actualizarComunas()">
+                            <option value="">Seleccione la región</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="comuna"><i class="bi bi-geo"></i> Comuna</label>
+                        <select class="form-select" id="comuna">
+                            <option value="">Seleccione primero una región</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="direccion"><i class="bi bi-geo-alt"></i> Dirección</label>
+                    <input type="text" class="form-control" id="direccion" placeholder="Calle, número, referencia" maxlength="300">
+                </div>
+
+                <div id="resultado-validacion"></div>
+
+                <div class="d-flex gap-3 mt-3">
+                    <button type="button" class="btn-enviar" onclick="validarFormulario('formularioRegistro')">
+                        <i class="bi bi-check-circle"></i> Registrar
+                    </button>
+                    <button type="button" class="btn-limpiar" onclick="resetearFormulario('formularioRegistro')">
+                        <i class="bi bi-eraser"></i> Limpiar
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Todos los derechos reservados
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>

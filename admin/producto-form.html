@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas El Volcán - Nuevo/Editar Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-proteger-admin>
+    <div class="container">
+        <header>
+            <h1><i class="bi bi-speedometer2"></i> Panel Administrador</h1>
+            <p>Formulario de Producto</p>
+        </header>
+
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="admin-logo"><i class="bi bi-fire"></i> Gas El Volcán</div>
+                <a href="index.html"><i class="bi bi-house-door"></i> Home</a>
+                <a href="productos.html" class="active"><i class="bi bi-box-seam"></i> Productos</a>
+                <a href="usuarios.html"><i class="bi bi-people"></i> Usuarios</a>
+                <a href="#" onclick="cerrarSesion('../index.html'); return false;"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
+            </aside>
+            <div class="admin-contenido">
+                <h2 id="titulo-formulario-producto"><i class="bi bi-plus-circle"></i> Nuevo Producto</h2>
+
+                <form id="formularioProducto">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="codigo"><i class="bi bi-upc"></i> Código Producto</label>
+                            <input type="text" class="form-control" id="codigo" placeholder="Ej: CL005">
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label" for="nombre"><i class="bi bi-tag"></i> Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ej: Cilindro GLP 2 kg" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="descripcion"><i class="bi bi-card-text"></i> Descripción (opcional)</label>
+                        <textarea class="form-control" id="descripcion" rows="3" maxlength="500" data-opcional="true" placeholder="Descripción del producto"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="precio"><i class="bi bi-cash"></i> Precio (CLP)</label>
+                            <input type="number" class="form-control" id="precio" min="0" step="1" placeholder="Ej: 12000">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="stock"><i class="bi bi-boxes"></i> Stock</label>
+                            <input type="number" class="form-control" id="stock" min="0" step="1" placeholder="Ej: 50">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="stockCritico"><i class="bi bi-exclamation-triangle"></i> Stock Crítico (opcional)</label>
+                            <input type="number" class="form-control" id="stockCritico" min="0" step="1" data-opcional="true" placeholder="Ej: 10">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="categoria"><i class="bi bi-grid"></i> Categoría</label>
+                            <select class="form-select" id="categoria">
+                                <option value="">Seleccione una categoría</option>
+                                <option value="Cilindros de Gas">Cilindros de Gas</option>
+                                <option value="Reguladores">Reguladores</option>
+                                <option value="Mangueras y Conexiones">Mangueras y Conexiones</option>
+                                <option value="Accesorios">Accesorios</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="imagen"><i class="bi bi-image"></i> URL Imagen (opcional)</label>
+                            <input type="text" class="form-control" id="imagen" data-opcional="true" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div id="resultado-validacion"></div>
+
+                    <div class="d-flex gap-3 mt-3">
+                        <button type="button" class="btn-enviar" onclick="validarFormulario('formularioProducto')">
+                            <i class="bi bi-check-circle"></i> Guardar
+                        </button>
+                        <a href="productos.html" class="btn-limpiar" style="text-decoration:none; display:inline-flex; align-items:center;">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Panel Administrador
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datos.js"></script>
+    <script src="../js/funciones.js"></script>
+</body>
+</html>

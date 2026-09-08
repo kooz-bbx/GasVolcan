@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas El Volcán - Panel Vendedor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-proteger-vendedor>
+    <div class="container">
+        <header>
+            <h1><i class="bi bi-person-badge"></i> Panel Vendedor</h1>
+            <p>Distribuidora de Gas El Volcán</p>
+        </header>
+
+        <div class="aviso-alcance">
+            <i class="bi bi-info-circle"></i>
+            El rol Vendedor solo puede <strong>ver</strong> productos y pedidos, sin crear, editar
+            ni eliminar nada, ni acceder a Usuarios. Inicia sesión con
+            <code>vendedor@duoc.cl</code> / <code>vende123</code> para probar esta vista.
+        </div>
+
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="admin-logo"><i class="bi bi-fire"></i> Gas El Volcán</div>
+                <a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a>
+                <a href="productos.html"><i class="bi bi-box-seam"></i> Productos</a>
+                <a href="pedidos.html"><i class="bi bi-receipt"></i> Pedidos</a>
+                <a href="#" onclick="cerrarSesion('../index.html'); return false;"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
+            </aside>
+            <div class="admin-contenido">
+                <h2>¡Hola, Vendedor!</h2>
+                <p>Desde aquí puedes consultar el catálogo de productos y el listado de pedidos. No tienes permisos para modificarlos.</p>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="actor-card">
+                            <h5><i class="bi bi-box-seam"></i> Ver Productos</h5>
+                            <p>Consulta el catálogo completo y el detalle de cada producto.</p>
+                            <a href="productos.html" class="btn-enviar" style="text-decoration:none; display:inline-block;">Ir a Productos</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="actor-card">
+                            <h5><i class="bi bi-receipt"></i> Ver Pedidos</h5>
+                            <p>Consulta el listado de pedidos y el detalle de cada uno.</p>
+                            <a href="pedidos.html" class="btn-enviar" style="text-decoration:none; display:inline-block;">Ir a Pedidos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <i class="bi bi-fire"></i>
+            © 2026 - Distribuidora de Gas El Volcán - Panel Vendedor
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datos.js"></script>
+    <script src="../js/funciones.js"></script>
+</body>
+</html>
