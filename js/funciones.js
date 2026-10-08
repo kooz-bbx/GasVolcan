@@ -18,6 +18,9 @@ var PRECIOS_CILINDRO = {
 // Dominios de correo permitidos (regla de negocio de la rubricaa)
 var DOMINIOS_PERMITIDOS = ['duoc.cl', 'profesor.duoc.cl', 'gmail.com'];
 
+// Unica categoria del catalogo: la distribuidora solo vende gas
+var CATEGORIA_GAS = 'Cilindros de Gas';
+
 
 // =========================================================
 // UTILIDADES DE TEXTO Y FORMATO
@@ -271,7 +274,8 @@ function validarFormulario(formId) {
         var numeroPedido = 'GV-' + Math.floor(1000 + Math.random() * 9000);
         var total = guardarPedidoEnLocalStorage(formulario, numeroPedido);
         resultado.innerHTML = '¡Pedido registrado! Tu número de seguimiento es <strong>' + numeroPedido +
-            '</strong>. El monto estimado a pagar es de <strong>$' + formatearCLP(total) + '</strong>.';
+            '</strong>. El monto estimado a pagar es de <strong>$' + formatearCLP(total) + '</strong>. ' +
+            '<a href="seguimiento.html">Ver mi seguimiento</a>';
         resultado.className = 'alert-success';
         resultado.style.display = 'block';
 
@@ -352,7 +356,8 @@ function guardarPedidoEnLocalStorage(formulario, numeroPedido) {
         cilindro: cilindro + (cantidad > 1 ? ' x' + cantidad : ''),
         total: total,
         repartidor: 'Sin asignar',
-        estado: 'pendiente'
+        estado: 'pendiente',
+        propietario: obtenerPropietarioActual()
     };
 
     var pedidosGuardados = localStorage.getItem(CLAVE_PEDIDOS);
@@ -364,36 +369,72 @@ function guardarPedidoEnLocalStorage(formulario, numeroPedido) {
 } // fin function guardarPedidoEnLocalStorage
 
 
+// Quien esta haciendo el pedido: el correo de la sesion activa, o
+// 'invitado' si compra sin haber iniciado sesion
+function obtenerPropietarioActual() {
+    var sesion = obtenerSesion();
+    return sesion ? sesion.correo : 'invitado';
+} // fin function obtenerPropietarioActual
+
+
+// Solo los pedidos del usuario actual (los pedidos de otras personas
+// no se muestran en el seguimiento de la tienda)
+function obtenerMisPedidos() {
+    var pedidosGuardados = localStorage.getItem(CLAVE_PEDIDOS);
+    var listaPedidos = pedidosGuardados ? JSON.parse(pedidosGuardados) : [];
+    var propietario = obtenerPropietarioActual();
+
+    return listaPedidos.filter(function (pedido) {
+        // los pedidos antiguos no tenian propietario: cuentan como de invitado
+        return (pedido.propietario || 'invitado') === propietario;
+    });
+} // fin function obtenerMisPedidos
+
+
+var ETIQUETAS_ESTADO = {
+    'pendiente': 'Pendiente',
+    'en-camino': 'En camino',
+    'entregado': 'Entregado',
+    'cancelado': 'Cancelado'
+};
+
 function mostrarPedidosGuardados() {
 
     var cuerpoTabla = document.getElementById('tabla-pedidos-body');
     if (!cuerpoTabla) {
+        return; // No estamos en seguimiento.html, no hacemos nada
+    }
+
+    var mensajeVacio = document.getElementById('seguimiento-vacio');
+    var contenido = document.getElementById('seguimiento-contenido');
+    var misPedidos = obtenerMisPedidos();
+
+    // Si todavia no hizo ningun pedido, no hay nada que seguir
+    if (misPedidos.length === 0) {
+        if (mensajeVacio) { mensajeVacio.style.display = 'block'; }
+        if (contenido) { contenido.style.display = 'none'; }
         return;
     }
 
-    var pedidosGuardados = localStorage.getItem(CLAVE_PEDIDOS);
-    if (!pedidosGuardados) {
-        return;
-    }
+    if (mensajeVacio) { mensajeVacio.style.display = 'none'; }
+    if (contenido) { contenido.style.display = 'block'; }
 
-    var listaPedidos = JSON.parse(pedidosGuardados);
+    // La lista ya viene con el pedido mas reciente primero
+    var html = '';
+    for (var i = 0; i < misPedidos.length; i++) {
+        var pedido = misPedidos[i];
 
-    for (var i = listaPedidos.length - 1; i >= 0; i--) {
-        var pedido = listaPedidos[i];
-
-        var fila = document.createElement('tr');
-        fila.setAttribute('data-estado', pedido.estado);
-
-        fila.innerHTML =
+        html += '<tr data-estado="' + pedido.estado + '">' +
             '<td>' + pedido.numero + '</td>' +
-            '<td>' + pedido.cliente + '</td>' +
             '<td>' + pedido.direccion + '</td>' +
             '<td>' + pedido.cilindro + (pedido.total ? ' — $' + formatearCLP(pedido.total) : '') + '</td>' +
             '<td>' + pedido.repartidor + '</td>' +
-            '<td><span class="badge-estado ' + pedido.estado + '">Pendiente</span></td>';
-
-        cuerpoTabla.insertBefore(fila, cuerpoTabla.firstChild);
+            '<td><span class="badge-estado ' + pedido.estado + '">' +
+                (ETIQUETAS_ESTADO[pedido.estado] || 'Pendiente') + '</span></td>' +
+        '</tr>';
     }
+    cuerpoTabla.innerHTML = html;
+
 } // fin function mostrarPedidosGuardados
 
 
@@ -453,20 +494,14 @@ function renderProductos(filtroCategoria) {
 } // fin function renderProductos
 
 
-function filtrarProductos() {
-    var filtro = document.getElementById('filtro-categoria').value;
-    renderProductos(filtro);
-} // fin function filtrarProductos
-
-
 function renderDestacados() {
     var contenedor = document.getElementById('destacados-container');
     if (!contenedor) {
         return;
     }
 
-    // Mostramos 4 productos como destacados (uno de cada categora)
-    var destacados = [PRODUCTOS[1], PRODUCTOS[4], PRODUCTOS[7], PRODUCTOS[13]];
+    // Mostramos los cilindros del catalogo como destacados
+    var destacados = PRODUCTOS.slice(0, 4);
 
     var html = '';
     for (var i = 0; i < destacados.length; i++) {
@@ -531,7 +566,16 @@ function renderDetalleProducto() {
 
 function obtenerCarrito() {
     var guardado = localStorage.getItem(CLAVE_CARRITO);
-    return guardado ? JSON.parse(guardado) : [];
+    var carrito = guardado ? JSON.parse(guardado) : [];
+
+    // Descartamos productos que ya no existen en el catalogo (por ejemplo,
+    // accesorios que quedaron en un carrito guardado antes de dejar solo gas)
+    if (typeof buscarProductoPorCodigo === 'function') {
+        carrito = carrito.filter(function (item) {
+            return buscarProductoPorCodigo(item.codigo) !== null;
+        });
+    }
+    return carrito;
 }
 
 function guardarCarrito(carrito) {
@@ -914,7 +958,14 @@ var CLAVE_PRODUCTOS_ADMIN = 'gv_productos_admin';
 function obtenerProductosAdmin() {
     var guardado = localStorage.getItem(CLAVE_PRODUCTOS_ADMIN);
     if (guardado) {
-        return JSON.parse(guardado);
+        // Solo se venden cilindros de gas: si el navegador todavia tenia
+        // guardados reguladores, mangueras o accesorios, los sacamos
+        var lista = JSON.parse(guardado);
+        var soloGas = lista.filter(function (p) { return p.categoria === CATEGORIA_GAS; });
+        if (soloGas.length !== lista.length) {
+            guardarProductosAdmin(soloGas);
+        }
+        return soloGas;
     }
     // Primera vez: sembramos con el catalogo base de datos.js
     var copiaInicial = JSON.parse(JSON.stringify(PRODUCTOS));
