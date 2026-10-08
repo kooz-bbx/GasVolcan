@@ -57,86 +57,56 @@
             </nav>
         </header>
 
-        <!-- ===== AVISO DE ALCANCE ACADEMICO === -->
+        <!-- ===== AVISO DE ALCANCE ACADEMICO ===== -->
         <div class="aviso-alcance">
             <i class="bi bi-info-circle"></i>
-            Las filas en gris claro son datos de ejemplo. Si acabas de hacer un pedido en
-            "Hacer Pedido", aparecerá arriba de la tabla como <strong>Pendiente</strong>: se
-            guarda en el almacenamiento local de este navegador (localStorage), ya que todavía
-            no hay backend (Spring Boot + API + base de datos) ni actualización de estado en
-            tiempo real entre distintos usuarios.
+            Aquí ves solo los pedidos que hiciste tú desde "Pedido Rápido". Se guardan en el
+            almacenamiento local de este navegador (<code>localStorage</code>), ya que todavía
+            no hay backend ni base de datos, y su estado no se actualiza en tiempo real.
         </div>
 
-        <!-- ===== SEGUIMIENTO DE PEDIDOS ===== -->
+        <!-- ===== SEGUIMIENTO DE MIS PEDIDOS ===== -->
         <section>
-            <h2><i class="bi bi-truck"></i> Pedidos del Día (ejemplo)</h2>
-            <p>Así se vería el panel de la operadora con los pedidos y su estado.</p>
+            <h2><i class="bi bi-truck"></i> Mis Pedidos</h2>
 
-            <div class="mb-3">
-                <label class="form-label"><i class="bi bi-funnel"></i> Filtrar por estado</label>
-                <select class="form-select" id="filtro-estado" onchange="filtrarPedidos()" style="max-width: 300px;">
-                    <option value="todos">Todos</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="en-camino">En camino</option>
-                    <option value="entregado">Entregado</option>
-                </select>
+            <!-- Se muestra cuando todavia no se ha hecho ningun pedido -->
+            <div id="seguimiento-vacio" style="display:none;">
+                <p>Todavía no has hecho ningún pedido, así que no hay nada que seguir.</p>
+                <a href="pedido.html" class="btn-enviar" style="text-decoration:none; display:inline-block;">
+                    <i class="bi bi-cart"></i> Hacer mi primer pedido
+                </a>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered tabla-pedidos">
-                    <thead>
-                        <tr>
-                            <th>N° Pedido</th>
-                            <th>Cliente</th>
-                            <th>Dirección</th>
-                            <th>Cilindro</th>
-                            <th>Repartidor</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-pedidos-body">
-                        <tr data-estado="entregado">
-                            <td>GV-1042</td>
-                            <td>Rosa Muñoz</td>
-                            <td>Av. Collín 450, Chillán</td>
-                            <td>11 kg</td>
-                            <td>Pedro Sánchez</td>
-                            <td><span class="badge-estado entregado">Entregado</span></td>
-                        </tr>
-                        <tr data-estado="en-camino">
-                            <td>GV-1043</td>
-                            <td>Luis Torres</td>
-                            <td>Calle Arauco 220, Chillán</td>
-                            <td>15 kg</td>
-                            <td>Marcelo Ríos</td>
-                            <td><span class="badge-estado en-camino">En camino</span></td>
-                        </tr>
-                        <tr data-estado="pendiente">
-                            <td>GV-1044</td>
-                            <td>Carmen Vidal</td>
-                            <td>Los Aromos 88, Chillán Viejo</td>
-                            <td>5 kg</td>
-                            <td>Sin asignar</td>
-                            <td><span class="badge-estado pendiente">Pendiente</span></td>
-                        </tr>
-                        <tr data-estado="pendiente">
-                            <td>GV-1045</td>
-                            <td>Jorge Alarcón</td>
-                            <td>Purén 310, Chillán</td>
-                            <td>11 kg</td>
-                            <td>Sin asignar</td>
-                            <td><span class="badge-estado pendiente">Pendiente</span></td>
-                        </tr>
-                        <tr data-estado="entregado">
-                            <td>GV-1046</td>
-                            <td>Marta Sepúlveda</td>
-                            <td>18 de Septiembre 902, Chillán</td>
-                            <td>11 kg</td>
-                            <td>Pedro Sánchez</td>
-                            <td><span class="badge-estado entregado">Entregado</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Se muestra cuando ya hay pedidos hechos -->
+            <div id="seguimiento-contenido" style="display:none;">
+                <p>Estado de los pedidos que has solicitado:</p>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-funnel"></i> Filtrar por estado</label>
+                    <select class="form-select" id="filtro-estado" onchange="filtrarPedidos()" style="max-width: 300px;">
+                        <option value="todos">Todos</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en-camino">En camino</option>
+                        <option value="entregado">Entregado</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered tabla-pedidos">
+                        <thead>
+                            <tr>
+                                <th>N° Pedido</th>
+                                <th>Dirección</th>
+                                <th>Cilindro</th>
+                                <th>Repartidor</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-pedidos-body">
+                            <!-- Se llena con JavaScript (ver js/funciones.js -> mostrarPedidosGuardados) -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
