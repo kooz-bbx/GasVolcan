@@ -1,0 +1,107 @@
+/* ===========================================
+   Distribuidora de Gas El Volcán - estilos
+   (Bootstrap pone la base; esto agrega la identidad naranja)
+   =========================================== */
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+
+.gv-contenedor { margin-top: 20px; margin-bottom: 20px; }
+
+.gv-seccion {
+  background: #fff;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #E65100;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+.gv-seccion h2 { color: #BF360C; font-size: 1.6rem; border-bottom: 2px solid #E65100; padding-bottom: 8px; }
+.gv-seccion h3 { color: #D84315; font-size: 1.2rem; margin-top: 15px; }
+.gv-login { max-width: 500px; margin-left: auto; margin-right: auto; }
+
+.gv-footer { background: #333; color: #fff; text-align: center; padding: 15px; margin-top: 20px; }
+
+.destacado { background: #FFF3E0; padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; font-size: 1.2rem; }
+.actor-card { background: #f8f9fa; border-radius: 8px; padding: 15px; border-left: 4px solid #E65100; height: 100%; }
+.actor-card h5 { color: #BF360C; }
+.contact-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #E65100; }
+.contact-info h5 i { color: #E65100; margin-right: 10px; }
+.contact-info p { margin: 0; padding-left: 30px; }
+.aviso-alcance { background: #E3F2FD; color: #0D47A1; padding: 12px 15px; border-radius: 4px; border-left: 4px solid #1976D2; font-size: 0.9rem; margin-bottom: 20px; }
+
+.btn-enviar, .btn-enviar:focus {
+  background-color: #E65100; color: #fff; padding: 10px 30px; border: none; border-radius: 4px; font-weight: 600; cursor: pointer;
+}
+.btn-enviar:hover, .btn-enviar:active { background-color: #BF360C !important; color: #fff; }
+.btn-limpiar, .btn-limpiar:focus {
+  background-color: #6c757d; color: #fff; padding: 10px 30px; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; display: inline-block;
+}
+.btn-limpiar:hover, .btn-limpiar:active { background-color: #5a6268 !important; color: #fff; }
+td .btn-enviar, td .btn-limpiar { padding: 5px 12px; }
+
+.form-label { font-weight: 600; }
+.form-control:focus, .form-select:focus { border-color: #E65100; box-shadow: 0 0 0 0.2rem rgba(230, 81, 0, 0.25); }
+.error-message { color: #dc3545; font-size: 0.85rem; display: block; margin-top: 5px; }
+
+.tabla-pedidos th { background-color: #E65100 !important; color: #fff !important; }
+
+.badge-estado { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: #fff; }
+.badge-estado.entregado { background-color: #4CAF50; }
+.badge-estado.pendiente { background-color: #FF9800; }
+.badge-estado.en-camino { background-color: #2196F3; }
+.badge-estado.cancelado { background-color: #f44336; }
+
+.badge-rol { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: #fff; }
+.badge-rol.administrador { background-color: #6A1B9A; }
+.badge-rol.vendedor { background-color: #00838F; }
+.badge-rol.cliente { background-color: #558B2F; }
+.badge-stock-critico { background-color: #dc3545; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+
+.producto-card { transition: box-shadow 0.2s; }
+.producto-card:hover { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+.producto-card img { height: 160px; object-fit: cover; }
+.producto-card h5 { color: #BF360C; font-size: 1rem; }
+.producto-card .precio, .precio { font-size: 1.3rem; font-weight: bold; color: #E65100; }
+.categoria-badge { display: inline-block; background: #FFF3E0 !important; color: #BF360C !important; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; }
+.stock-critico { color: #dc3545; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; }
+
+.carrito-item img { object-fit: cover; border-radius: 6px; }
+
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .btn-enviar, .btn-limpiar { padding: 8px 20px; font-size: 0.9rem; }
+}
+
+/* ---- Header (Anexo 1): marca + buscador + sesión, y menú debajo ---- */
+.gv-header { background-color: #E65100; }
+.gv-marca { color: #fff; font-size: 1.4rem; font-weight: bold; }
+.gv-marca:hover { color: #fff; }
+#logo-empresa { color: #FFD54F; }
+.gv-menu { background-color: #BF360C; }
+.gv-menu .nav-link { color: #fff; }
+.gv-menu .nav-link:hover, .gv-menu .nav-link.active { color: #FFD54F; }
+.gv-carrusel img { height: 320px; object-fit: contain; background: #fff3e0; }
+.gv-carrusel .carousel-caption { background: rgba(0, 0, 0, 0.45); border-radius: 6px; }
+.categoria-card img { height: 160px; object-fit: contain; background: #fff3e0; }
+.categoria-card:hover { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12); }
+
+/* ---- Estado de pago fallido ---- */
+.badge-estado.pago-fallido { background-color: #B71C1C; }
+
+/* ---- Panel de administración (Figuras 9 y 10) ---- */
+.gv-admin { min-height: 80vh; }
+.gv-sidebar { background: #333; }
+.gv-sidebar .nav-link { color: #ddd; padding: 12px 18px; }
+.gv-sidebar .nav-link:hover, .gv-sidebar .nav-link.active { background: #E65100; color: #fff; }
+.stat-card { border-top: 4px solid #E65100; }
+.stat-card i { color: #E65100; }
+
+/* ---- Boleta: al imprimir solo se ve la boleta ---- */
+@media print {
+  .gv-header, .gv-footer, .no-imprimir, .alert { display: none !important; }
+  .gv-seccion { box-shadow: none; border: 0; }
+}
