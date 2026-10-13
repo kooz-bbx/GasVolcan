@@ -7,7 +7,26 @@
 // karma-coverage genera el informe en la carpeta coverage/.
 // =========================================================
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
+
+// Si no está definida CHROME_BIN, se busca Chrome o Edge en las rutas típicas
+// (así `npm test` funciona sin configurar nada, incluso en un PC sin Chrome).
+if (!process.env.CHROME_BIN) {
+  const rutas = [
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    (process.env.LOCALAPPDATA || '') + '\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+  ];
+  const encontrada = rutas.find((r) => r && fs.existsSync(r));
+  if (encontrada) process.env.CHROME_BIN = encontrada;
+}
 
 const babelPresets = [
   '@babel/preset-env',
