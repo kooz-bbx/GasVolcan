@@ -2,7 +2,8 @@
 // Todo se guarda a través de baseDatos.js (CRUD).
 import { PRECIOS_CILINDRO } from '../data/datos';
 import {
-  actualizarOrden, actualizarProducto, crearOrden, listarOrdenes, obtenerProducto,
+  actualizarOrden, actualizarProducto, crearOrden, listarOrdenes, obtenerOrden as obtenerOrdenPorNumero,
+  obtenerProducto,
 } from '../data/baseDatos';
 import { capitalizarTexto } from '../utils/validaciones';
 import { obtenerSesion } from './usuarioService';
@@ -114,4 +115,35 @@ export function descontarStock(detalle) {
       actualizarProducto(producto.codigo, { stock: Math.max(0, producto.stock - item.cantidad) });
     }
   });
+}
+
+// ---------- Reparto (panel del vendedor / repartidor) ----------
+// Flujo del pedido: pendiente -> en-camino -> entregado
+// (pendiente o en-camino también se pueden cancelar).
+// Entregado, cancelado y pago-fallido ya no cambian.
+const SIGUIENTES_ESTADOS = {
+  pendiente: ['en-camino', 'cancelado'],
+  'en-camino': ['entregado', 'cancelado'],
+};
+
+// Estados a los que puede pasar un pedido desde su estado actual
+export function estadosSiguientes(estadoActual) {
+  return SIGUIENTES_ESTADOS[estadoActual] || [];
+}
+
+// Cambia el estado de un pedido respetando el flujo.
+//  - en-camino: queda asignado al repartidor que lo toma
+//  - entregado: se registra la fecha de entrega y el pago queda como recibido
+//    (en efectivo el repartidor cobra en ese momento)
+// Devuelve la orden actualizada, o null si el cambio no está permitido.
+export function cambiarEstadoPedido(numero, nuevoEstado, repartidor = '') {
+  const orden = obtenerOrdenPorNumero(numero);
+  if (!orden || !estadosSiguientes(orden.estado).includes(nuevoEstado)) return null;
+  const cambios = { estado: nuevoEstado };
+  if (nuevoEstado === 'en-camino' && repartidor) cambios.repartidor = repartidor;
+  if (nuevoEstado === 'entregado') {
+    cambios.fechaEntrega = new Date().toISOString();
+    cambios.pago = { ...orden.pago, pagado: true };
+  }
+  return actualizarOrden(numero, cambios);
 }

@@ -8,7 +8,7 @@ const VendedorHome = () => {
   const { sesion } = useAuth();
   return (
     <Seccion titulo={`Panel de Vendedor — ${sesion.nombre}`} icono="bi-speedometer2">
-      <p>Aquí puedes consultar el catálogo y los pedidos (solo lectura).</p>
+      <p>Aquí puedes consultar el catálogo y gestionar el reparto de los pedidos: salir a repartir, confirmar la entrega y el pago en efectivo.</p>
       <Row>
         <Col md={6} className="mb-3">
           <Card className="h-100 text-center"><Card.Body>
