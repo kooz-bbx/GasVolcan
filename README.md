@@ -3,7 +3,7 @@
 Proyecto de **Desarrollo FullStack II (DSY1104)** — Evaluación Parcial 2.
 Tienda de cilindros de gas con panel de administración y panel de vendedor/reparto.
 
-**Equipo:** Benjamin Alegria, Nicolas Ortiz, Natalia Varela, EnzoViish
+**Equipo:** Benjamin Alegria, Nicolas Ortiz, Natalia Varela
 
 ## ¿Dónde está el proyecto en React?
 
