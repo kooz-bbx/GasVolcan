@@ -3,7 +3,9 @@ import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Seccion from '../../components/Seccion';
-import { actualizarProducto, crearProducto, listarCategorias, obtenerProducto } from '../../data/baseDatos';
+import { mensajeDeError } from '../../api/http';
+import { listarCategorias, obtenerProducto } from '../../data/baseDatos';
+import { actualizarProducto, crearProducto } from '../../services/catalogoService';
 import {
   errorCodigoProducto, errorDescuento, errorEnteroNoNegativo, errorPrecio,
 } from '../../utils/validaciones';
@@ -19,6 +21,7 @@ const AdminProductoForm = () => {
   const existente = codigo ? obtenerProducto(codigo) : null;
   const editando = Boolean(existente);
   const [guardado, setGuardado] = useState(false);
+  const [error, setError] = useState('');
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: existente ? { ...VACIO, ...existente, stockCritico: existente.stockCritico ?? '' } : VACIO,
   });
@@ -27,7 +30,7 @@ const AdminProductoForm = () => {
     return <Seccion><p>Producto no encontrado. <Link to="/admin/productos">Volver al listado</Link>.</p></Seccion>;
   }
 
-  const onSubmit = (d) => {
+  const onSubmit = async (d) => {
     const producto = {
       codigo: d.codigo.trim().toUpperCase(),
       nombre: d.nombre.trim(),
@@ -39,10 +42,15 @@ const AdminProductoForm = () => {
       stockCritico: d.stockCritico === '' ? null : Number(d.stockCritico),
       imagen: d.imagen.trim(),
     };
-    if (editando) actualizarProducto(existente.codigo, producto);
-    else crearProducto(producto);
-    setGuardado(true);
-    setTimeout(() => navigate('/admin/productos'), 800);
+    try {
+      if (editando) await actualizarProducto(existente.codigo, producto);
+      else await crearProducto(producto);
+      setError('');
+      setGuardado(true);
+      setTimeout(() => navigate('/admin/productos'), 800);
+    } catch (e) {
+      setError(mensajeDeError(e));
+    }
   };
 
   const err = (id) => errors[id] && <div className="error-message">{errors[id].message}</div>;
@@ -112,6 +120,7 @@ const AdminProductoForm = () => {
             <Form.Control id="imagen" placeholder="img/gas11.jpg" {...register('imagen')} />
           </Col>
         </Row>
+        {error && <Alert variant="danger" role="alert">{error}</Alert>}
         {guardado && <Alert variant="success" role="status">¡Producto guardado! Redirigiendo al listado...</Alert>}
         <div className="d-flex gap-3 mt-3">
           <Button type="submit" className="btn-enviar"><i className="bi bi-save" /> Guardar</Button>

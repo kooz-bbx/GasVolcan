@@ -13,10 +13,11 @@ function etiquetaAccion(estado, orden) {
   return { texto: 'Cancelar', icono: 'bi-x-circle' };
 }
 
-// Botones para que el repartidor avance el pedido.
-// Recibe la orden y una función onCambiar(nuevoEstado).
-const AccionesReparto = ({ orden, onCambiar }) => {
-  const siguientes = estadosSiguientes(orden.estado);
+// Botones para avanzar un pedido.
+// Props: orden, onCambiar(nuevoEstado) y, opcionalmente, estados: lista de los estados
+// que este usuario puede aplicar (el repartidor: en-camino y entregado; la operadora: cancelado).
+const AccionesReparto = ({ orden, onCambiar, estados }) => {
+  const siguientes = estadosSiguientes(orden.estado).filter((e) => !estados || estados.includes(e));
   if (siguientes.length === 0) return <span className="text-muted small">Sin acciones</span>;
   return (
     <div className="d-flex flex-wrap gap-2">

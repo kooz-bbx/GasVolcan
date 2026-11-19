@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Alert, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Seccion from '../../components/Seccion';
 import BotonAccion from '../../components/BotonAccion';
-import { eliminarProducto, listarProductos, obtenerCategoria } from '../../data/baseDatos';
+import { mensajeDeError } from '../../api/http';
+import { listarProductos, obtenerCategoria } from '../../data/baseDatos';
+import { eliminarProducto } from '../../services/catalogoService';
 import { hayStockBajo } from '../../utils/productos';
 import { formatearCLP } from '../../utils/validaciones';
 
 const AdminProductos = () => {
   const [productos, setProductos] = useState(() => listarProductos());
+  const [error, setError] = useState('');
 
-  const eliminar = (p) => {
+  const eliminar = async (p) => {
     if (!window.confirm(`¿Eliminar el producto ${p.nombre}?`)) return;
-    eliminarProducto(p.codigo);
+    try {
+      await eliminarProducto(p.codigo);
+      setError('');
+    } catch (e) {
+      setError(mensajeDeError(e));
+    }
     setProductos(listarProductos()); // la lista se actualiza al instante
   };
 
@@ -21,6 +29,7 @@ const AdminProductos = () => {
       <Link to="/admin/productos/nuevo" className="btn-enviar text-decoration-none d-inline-block mb-3">
         <i className="bi bi-plus-circle" /> Nuevo producto
       </Link>
+      {error && <Alert variant="danger" role="alert">{error}</Alert>}
       <Table responsive hover>
         <thead><tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Desc.</th><th>Stock</th><th>Acciones</th></tr></thead>
         <tbody>

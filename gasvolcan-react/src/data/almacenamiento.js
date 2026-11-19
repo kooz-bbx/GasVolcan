@@ -1,10 +1,8 @@
 // Acceso seguro a localStorage (si falla o el JSON está dañado, devuelve el valor por defecto)
+// El carrito y los tokens de sesión son lo único que se guarda en el navegador;
+// el resto de los datos viven en la base de datos del backend.
 export const CLAVES = {
-  productos: 'gv_db_productos',
-  categorias: 'gv_db_categorias',
-  ordenes: 'gv_db_ordenes',
-  usuarios: 'gv_usuarios',
-  sesion: 'gv_sesion',
+  tokens: 'gv_tokens',
   carrito: 'gv_carrito',
 };
 

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Seccion from '../components/Seccion';
 import CampoSelectRegion from '../components/CampoSelectRegion';
-import { crearUsuario, existeCorreo, existeRun } from '../services/usuarioService';
+import { mensajeDeError } from '../api/http';
+import { registrarCliente } from '../services/usuarioService';
 import {
   errorConfirmacion, errorContrasena, errorCorreo, errorFechaNacimiento, errorRun,
 } from '../utils/validaciones';
@@ -17,11 +18,19 @@ const INICIAL = {
 const Registro = () => {
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({ defaultValues: INICIAL });
   const [creado, setCreado] = useState(false);
+  const [error, setError] = useState('');
 
-  const onSubmit = (datos) => {
-    crearUsuario(datos, 'Cliente');
-    setCreado(true);
-    reset(INICIAL);
+  // El backend valida que el RUN y el correo no estén repetidos (responde 409)
+  const onSubmit = async (datos) => {
+    try {
+      await registrarCliente(datos);
+      setError('');
+      setCreado(true);
+      reset(INICIAL);
+    } catch (e) {
+      setCreado(false);
+      setError(mensajeDeError(e));
+    }
   };
 
   const campo = (id, etiqueta, opciones = {}) => (
@@ -42,7 +51,7 @@ const Registro = () => {
               props: { maxLength: 9, placeholder: 'Ej: 190110222' },
               reglas: {
                 required: 'El RUN es obligatorio',
-                validate: (v) => errorRun(v) || (existeRun(v) ? 'Ya existe una cuenta con ese RUN' : true),
+                validate: (v) => errorRun(v) || true,
               },
             })}
           </Col>
@@ -59,7 +68,7 @@ const Registro = () => {
               props: { type: 'email', placeholder: 'nombre@duoc.cl' },
               reglas: {
                 required: 'El correo es obligatorio',
-                validate: (v) => errorCorreo(v) || (existeCorreo(v) ? 'Ya existe una cuenta con ese correo' : true),
+                validate: (v) => errorCorreo(v) || true,
               },
             })}
           </Col>
@@ -93,9 +102,10 @@ const Registro = () => {
             ¡Cuenta creada con éxito! Ya puedes <Link to="/login">iniciar sesión</Link>.
           </Alert>
         )}
+        {error && <Alert variant="danger" role="alert">{error}</Alert>}
         <div className="d-flex gap-3 mt-3">
           <Button type="submit" className="btn-enviar"><i className="bi bi-check-circle" /> Registrar</Button>
-          <Button type="button" className="btn-limpiar" onClick={() => { reset(INICIAL); setCreado(false); }}>
+          <Button type="button" className="btn-limpiar" onClick={() => { reset(INICIAL); setCreado(false); setError(''); }}>
             <i className="bi bi-eraser" /> Limpiar
           </Button>
         </div>

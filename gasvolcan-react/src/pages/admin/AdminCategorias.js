@@ -3,16 +3,22 @@ import { Alert, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Seccion from '../../components/Seccion';
 import BotonAccion from '../../components/BotonAccion';
-import { eliminarCategoria, listarCategorias, listarProductos } from '../../data/baseDatos';
+import { mensajeDeError } from '../../api/http';
+import { listarCategorias, listarProductos } from '../../data/baseDatos';
+import { eliminarCategoria } from '../../services/catalogoService';
 
 const AdminCategorias = () => {
   const [categorias, setCategorias] = useState(() => listarCategorias());
   const [error, setError] = useState('');
 
-  const eliminar = (c) => {
+  const eliminar = async (c) => {
     if (!window.confirm(`¿Eliminar la categoría ${c.nombre}?`)) return;
-    const resultado = eliminarCategoria(c.id);
-    setError(resultado.ok ? '' : resultado.motivo);
+    try {
+      const resultado = await eliminarCategoria(c.id);
+      setError(resultado.ok ? '' : resultado.motivo);
+    } catch (e) {
+      setError(mensajeDeError(e));
+    }
     setCategorias(listarCategorias());
   };
   const cuantos = (id) => listarProductos().filter((p) => p.categoriaId === id).length;

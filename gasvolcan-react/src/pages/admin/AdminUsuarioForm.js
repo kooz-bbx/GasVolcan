@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import Seccion from '../../components/Seccion';
 import CampoSelectRegion from '../../components/CampoSelectRegion';
 import { ROLES } from '../../data/datos';
-import { actualizarUsuario, crearUsuario, existeCorreo, existeRun, obtenerUsuario } from '../../services/usuarioService';
+import { mensajeDeError } from '../../api/http';
+import { actualizarUsuario, crearUsuario, obtenerUsuario } from '../../services/usuarioService';
 import { errorContrasena, errorCorreo, errorRun } from '../../utils/validaciones';
 
 const AdminUsuarioForm = () => {
@@ -14,6 +15,7 @@ const AdminUsuarioForm = () => {
   const existente = run ? obtenerUsuario(run) : null;
   const editando = Boolean(existente);
   const [guardado, setGuardado] = useState(false);
+  const [error, setError] = useState('');
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
     defaultValues: existente
@@ -25,11 +27,17 @@ const AdminUsuarioForm = () => {
     return <Seccion><p>Usuario no encontrado. <Link to="/admin/usuarios">Volver al listado</Link>.</p></Seccion>;
   }
 
-  const onSubmit = (datos) => {
-    if (editando) actualizarUsuario(existente.run, datos);
-    else crearUsuario(datos);
-    setGuardado(true);
-    setTimeout(() => navigate('/admin/usuarios'), 900);
+  // El backend valida que el RUN y el correo no estén repetidos (responde 409)
+  const onSubmit = async (datos) => {
+    try {
+      if (editando) await actualizarUsuario(existente.run, datos);
+      else await crearUsuario(datos);
+      setError('');
+      setGuardado(true);
+      setTimeout(() => navigate('/admin/usuarios'), 900);
+    } catch (e) {
+      setError(mensajeDeError(e));
+    }
   };
 
   const err = (id) => errors[id] && <div className="error-message">{errors[id].message}</div>;
@@ -44,7 +52,7 @@ const AdminUsuarioForm = () => {
               {...register('run', {
                 required: 'El RUN es obligatorio',
                 // al editar el RUN no se puede cambiar, así que no se vuelve a validar
-                validate: (v) => (editando ? true : errorRun(v) || (existeRun(v) ? 'Ya existe un usuario con ese RUN' : true)),
+                validate: (v) => (editando ? true : errorRun(v) || true),
               })} />
             {err('run')}
           </Col>
@@ -67,7 +75,7 @@ const AdminUsuarioForm = () => {
             <Form.Control id="correo" type="email" isInvalid={!!errors.correo}
               {...register('correo', {
                 required: 'El correo es obligatorio',
-                validate: (v) => errorCorreo(v) || (existeCorreo(v, existente && existente.run) ? 'Ya existe un usuario con ese correo' : true),
+                validate: (v) => errorCorreo(v) || true,
               })} />
             {err('correo')}
           </Col>
@@ -95,6 +103,7 @@ const AdminUsuarioForm = () => {
             {...register('direccion', { required: 'La dirección es obligatoria' })} />
           {err('direccion')}
         </div>
+        {error && <Alert variant="danger" role="alert">{error}</Alert>}
         {guardado && <Alert variant="success" role="status">¡Usuario guardado! Redirigiendo al listado...</Alert>}
         <div className="d-flex gap-3 mt-3">
           <Button type="submit" className="btn-enviar"><i className="bi bi-save" /> Guardar</Button>

@@ -3,13 +3,16 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Seccion from '../../components/Seccion';
-import { actualizarCategoria, crearCategoria, obtenerCategoria } from '../../data/baseDatos';
+import { mensajeDeError } from '../../api/http';
+import { obtenerCategoria } from '../../data/baseDatos';
+import { actualizarCategoria, crearCategoria } from '../../services/catalogoService';
 
 const AdminCategoriaForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const existente = id ? obtenerCategoria(id) : null;
   const [guardado, setGuardado] = useState(false);
+  const [error, setError] = useState('');
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: existente ? { nombre: existente.nombre, descripcion: existente.descripcion } : { nombre: '', descripcion: '' },
   });
@@ -18,11 +21,17 @@ const AdminCategoriaForm = () => {
     return <Seccion><p>Categoría no encontrada. <Link to="/admin/categorias">Volver</Link>.</p></Seccion>;
   }
 
-  const onSubmit = (d) => {
-    if (existente) actualizarCategoria(existente.id, { nombre: d.nombre.trim(), descripcion: d.descripcion.trim() });
-    else crearCategoria(d);
-    setGuardado(true);
-    setTimeout(() => navigate('/admin/categorias'), 800);
+  const onSubmit = async (d) => {
+    const categoria = { nombre: d.nombre.trim(), descripcion: d.descripcion.trim() };
+    try {
+      if (existente) await actualizarCategoria(existente.id, categoria);
+      else await crearCategoria(categoria);
+      setError('');
+      setGuardado(true);
+      setTimeout(() => navigate('/admin/categorias'), 800);
+    } catch (e) {
+      setError(mensajeDeError(e));
+    }
   };
 
   return (
@@ -38,6 +47,7 @@ const AdminCategoriaForm = () => {
           <Form.Label htmlFor="descripcion">Descripción</Form.Label>
           <Form.Control id="descripcion" as="textarea" rows={3} maxLength={300} {...register('descripcion')} />
         </div>
+        {error && <Alert variant="danger" role="alert">{error}</Alert>}
         {guardado && <Alert variant="success" role="status">¡Categoría guardada! Redirigiendo...</Alert>}
         <div className="d-flex gap-3">
           <Button type="submit" className="btn-enviar"><i className="bi bi-save" /> Guardar</Button>

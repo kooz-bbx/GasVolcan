@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Seccion from '../components/Seccion';
 import { useAuth } from '../context/AuthContext';
+import { estadoHttp, mensajeDeError } from '../api/http';
 import { rutaInicioPorRol } from '../services/usuarioService';
 import { errorContrasena, errorCorreo } from '../utils/validaciones';
 
@@ -13,14 +14,14 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  const onSubmit = ({ correo, contrasena }) => {
-    const sesion = iniciarSesion(correo, contrasena);
-    if (!sesion) {
-      setError('Correo o contraseña incorrectos.');
-      return;
+  const onSubmit = async ({ correo, contrasena }) => {
+    try {
+      const usuario = await iniciarSesion(correo, contrasena);
+      setError('');
+      navigate(rutaInicioPorRol(usuario.tipoUsuario));
+    } catch (e) {
+      setError(estadoHttp(e) === 401 ? 'Correo o contraseña incorrectos.' : mensajeDeError(e));
     }
-    setError('');
-    navigate(rutaInicioPorRol(sesion.tipoUsuario));
   };
 
   return (

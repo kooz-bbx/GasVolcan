@@ -2,11 +2,11 @@
 import React from 'react';
 import { screen, fireEvent, cleanup } from '@testing-library/react';
 import ShoppingCart from '../components/ShoppingCart';
-import { renderConApp } from '../test-utils';
+import { renderConApp, prepararCache } from '../test-utils';
 import { guardarCarrito } from '../services/carritoService';
 
 describe('Componente ShoppingCart', () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => { localStorage.clear(); prepararCache(); });
   afterEach(() => cleanup());
 
   it('renderizado condicional: carrito vacío muestra el aviso', () => {

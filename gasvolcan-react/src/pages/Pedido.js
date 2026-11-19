@@ -3,7 +3,8 @@ import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Seccion from '../components/Seccion';
-import { crearOrdenRapida } from '../services/ordenService';
+import { mensajeDeError } from '../api/http';
+import { crearPedidoRapido } from '../services/ordenService';
 import { errorTelefono, formatearCLP, limitarTelefono } from '../utils/validaciones';
 
 const VALORES_INICIALES = {
@@ -20,16 +21,25 @@ const Pedido = () => {
     defaultValues: VALORES_INICIALES,
   });
   const [confirmacion, setConfirmacion] = useState(null);
+  const [error, setError] = useState('');
 
-  const onSubmit = (datos) => {
-    const pedido = crearOrdenRapida(datos);
-    setConfirmacion(pedido);
-    reset(VALORES_INICIALES);
+  // El backend crea el pedido con el precio real del catálogo
+  const onSubmit = async (datos) => {
+    try {
+      const pedido = await crearPedidoRapido(datos);
+      setError('');
+      setConfirmacion(pedido);
+      reset(VALORES_INICIALES);
+    } catch (e) {
+      setConfirmacion(null);
+      setError(mensajeDeError(e));
+    }
   };
 
   const limpiar = () => {
     reset(VALORES_INICIALES);
     setConfirmacion(null);
+    setError('');
   };
 
   return (
@@ -92,6 +102,7 @@ const Pedido = () => {
               {...register('comentario')} />
           </div>
 
+          {error && <Alert variant="danger" role="alert">{error}</Alert>}
           {confirmacion && (
             <Alert variant="success" role="status">
               ¡Pedido registrado! Tu número de seguimiento es <strong>{confirmacion.numero}</strong>. El

@@ -3,11 +3,11 @@ import React from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import ProductList from '../components/ProductList';
 import Navigation from '../components/Navigation';
-import { renderConApp } from '../test-utils';
+import { renderConApp, prepararCache } from '../test-utils';
 import { PRODUCTOS_SEMILLA } from '../data/datos';
 
 describe('Componente ProductList', () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => { localStorage.clear(); prepararCache(); });
   afterEach(() => cleanup());
 
   it('renderizado: muestra una tarjeta por cada producto recibido', () => {

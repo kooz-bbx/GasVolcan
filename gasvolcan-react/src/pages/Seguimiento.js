@@ -14,7 +14,7 @@ const Seguimiento = () => {
   const { sesion } = useAuth();
   const [filtro, setFiltro] = useState('todos');
   // Solo las órdenes del usuario actual (o de "invitado" sin sesión)
-  const ordenes = React.useMemo(() => obtenerMisOrdenes(), [sesion]); // eslint-disable-line react-hooks/exhaustive-deps
+  const ordenes = React.useMemo(() => obtenerMisOrdenes(sesion), [sesion]); // eslint-disable-line react-hooks/exhaustive-deps
   const visibles = ordenes.filter((o) => filtro === 'todos' || o.estado === filtro);
 
   if (ordenes.length === 0) {

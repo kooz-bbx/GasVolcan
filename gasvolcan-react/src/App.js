@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { DatosProvider } from './context/DatosContext';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import RutaProtegida from './components/RutaProtegida';
@@ -28,7 +29,7 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import NoEncontrado from './pages/NoEncontrado';
 
-// Paneles de Administrador y Vendedor: carga diferida (lazy + Suspense)
+// Paneles de Administrador, Operadora y Repartidor: carga diferida (lazy + Suspense)
 const AdminHome = lazy(() => import('./pages/admin/AdminHome'));
 const AdminOrdenes = lazy(() => import('./pages/admin/AdminOrdenes'));
 const AdminOrdenBoleta = lazy(() => import('./pages/admin/AdminOrdenBoleta'));
@@ -44,15 +45,8 @@ const AdminUsuarioForm = lazy(() => import('./pages/admin/AdminUsuarioForm'));
 const AdminUsuarioHistorial = lazy(() => import('./pages/admin/AdminUsuarioHistorial'));
 const AdminReportes = lazy(() => import('./pages/admin/AdminReportes'));
 const AdminPerfil = lazy(() => import('./pages/admin/AdminPerfil'));
-const VendedorHome = lazy(() => import('./pages/vendedor/VendedorHome'));
-const VendedorProductos = lazy(() => import('./pages/vendedor/VendedorProductos'));
-const VendedorProductoDetalle = lazy(() => import('./pages/vendedor/VendedorProductoDetalle'));
-const VendedorPedidos = lazy(() => import('./pages/vendedor/VendedorPedidos'));
-const VendedorPedidoDetalle = lazy(() => import('./pages/vendedor/VendedorPedidoDetalle'));
-
-const vendedorOAdmin = (elemento) => (
-  <RutaProtegida roles={['Vendedor', 'Administrador']}>{elemento}</RutaProtegida>
-);
+const OperadoraDespacho = lazy(() => import('./pages/operadora/OperadoraDespacho'));
+const RepartidorEntregas = lazy(() => import('./pages/repartidor/RepartidorEntregas'));
 
 // Diseño de la tienda: header + contenido + footer
 const TiendaLayout = () => (
@@ -89,11 +83,14 @@ export function AppRoutes() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
 
-          <Route path="/vendedor" element={vendedorOAdmin(<VendedorHome />)} />
-          <Route path="/vendedor/productos" element={vendedorOAdmin(<VendedorProductos />)} />
-          <Route path="/vendedor/productos/:codigo" element={vendedorOAdmin(<VendedorProductoDetalle />)} />
-          <Route path="/vendedor/pedidos" element={vendedorOAdmin(<VendedorPedidos />)} />
-          <Route path="/vendedor/pedidos/:numero" element={vendedorOAdmin(<VendedorPedidoDetalle />)} />
+          <Route
+            path="/operadora"
+            element={<RutaProtegida roles={['Operadora', 'Administrador']}><OperadoraDespacho /></RutaProtegida>}
+          />
+          <Route
+            path="/repartidor"
+            element={<RutaProtegida roles={['Repartidor']}><RepartidorEntregas /></RutaProtegida>}
+          />
 
           <Route path="*" element={<NoEncontrado />} />
         </Route>
@@ -130,11 +127,13 @@ export function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
-      </CartProvider>
+      <Router>
+        <DatosProvider>
+          <CartProvider>
+            <AppRoutes />
+          </CartProvider>
+        </DatosProvider>
+      </Router>
     </AuthProvider>
   );
 }

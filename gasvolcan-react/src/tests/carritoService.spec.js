@@ -1,10 +1,11 @@
 // Pruebas de LÓGICA del carrito + MOCK de localStorage con spyOn
+import { prepararCache } from '../test-utils';
 import {
   agregarItem, calcularTotal, cambiarCantidad, contarUnidades, obtenerCarrito,
 } from '../services/carritoService';
 
 describe('Carrito de compras (servicio)', () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => { localStorage.clear(); prepararCache(); });
 
   it('agregarItem crea el ítem y suma la cantidad si ya existe', () => {
     let carrito = agregarItem([], 'CL001', 1);

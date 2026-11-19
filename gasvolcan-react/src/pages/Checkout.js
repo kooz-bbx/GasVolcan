@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Seccion from '../components/Seccion';
 import ResumenCompra from '../components/ResumenCompra';
@@ -6,10 +7,8 @@ import CheckoutForm from '../components/CheckoutForm';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { obtenerOrden } from '../data/baseDatos';
-import { buscarUsuarioPorCorreo } from '../services/usuarioService';
-import {
-  descontarStock, guardarOrdenCheckout, procesarPago, reintentarPago,
-} from '../services/ordenService';
+import { mensajeDeError } from '../api/http';
+import { pagarCompra, reintentarPago } from '../services/ordenService';
 
 // Valores del formulario: si hay sesión se rellenan con los datos del usuario
 export function valoresIniciales(sesion, orden) {
@@ -43,6 +42,7 @@ const Checkout = () => {
   const [params] = useSearchParams();
   const numeroReintento = params.get('reintentar');
   const ordenPrevia = numeroReintento ? obtenerOrden(numeroReintento) : null;
+  const [error, setError] = useState('');
 
   if (detalle.length === 0) {
     return (
@@ -52,18 +52,22 @@ const Checkout = () => {
     );
   }
 
-  const pagar = (datos) => {
-    const resultado = procesarPago(datos.pago);
-    const estado = resultado.ok ? 'pendiente' : 'pago-fallido';
-    const orden = ordenPrevia
-      ? reintentarPago(ordenPrevia.numero, datos, estado)
-      : guardarOrdenCheckout(datos, detalle, estado);
-    if (resultado.ok) {
-      descontarStock(detalle);
-      vaciar();
-      navigate(`/compra-exitosa/${orden.numero}`);
-    } else {
-      navigate(`/pago-error/${orden.numero}`, { state: { motivo: resultado.motivo } });
+  // El backend calcula los precios, descuenta el stock y procesa el pago simulado.
+  // Responde la orden con estado 'pendiente' (pago aprobado) o 'pago-fallido'.
+  const pagar = async (datos) => {
+    try {
+      const orden = ordenPrevia
+        ? await reintentarPago(ordenPrevia.numero, datos)
+        : await pagarCompra(datos, detalle);
+      setError('');
+      if (orden.estado === 'pago-fallido') {
+        navigate(`/pago-error/${orden.numero}`, { state: { motivo: orden.motivoPago } });
+      } else {
+        vaciar();
+        navigate(`/compra-exitosa/${orden.numero}`);
+      }
+    } catch (e) {
+      setError(mensajeDeError(e));
     }
   };
 
@@ -71,7 +75,8 @@ const Checkout = () => {
     <Seccion titulo="Carrito de compra" icono="bi-credit-card">
       <p>Completa la siguiente información</p>
       <ResumenCompra items={detalle} />
-      <CheckoutForm valoresIniciales={valoresIniciales(sesion ? buscarUsuarioPorCorreo(sesion.correo) : null, ordenPrevia)} total={total} onPagar={pagar} />
+      {error && <Alert variant="danger" role="alert">{error}</Alert>}
+      <CheckoutForm valoresIniciales={valoresIniciales(sesion, ordenPrevia)} total={total} onPagar={pagar} />
     </Seccion>
   );
 };

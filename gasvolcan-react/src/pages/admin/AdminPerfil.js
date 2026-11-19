@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Seccion from '../../components/Seccion';
 import { useAuth } from '../../context/AuthContext';
-import { buscarUsuarioPorCorreo } from '../../services/usuarioService';
 
 const AdminPerfil = () => {
   const { sesion } = useAuth();
-  const u = (sesion && buscarUsuarioPorCorreo(sesion.correo)) || sesion;
+  const u = sesion; // los datos del usuario vienen del backend al iniciar sesión (GET /auth/me)
   return (
     <Seccion titulo="Perfil" icono="bi-person-circle">
       <p><strong>Nombre:</strong> {u.nombre} {u.apellidos}</p>

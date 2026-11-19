@@ -52,12 +52,14 @@ td .btn-enviar, td .btn-limpiar { padding: 5px 12px; }
 .badge-estado { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: #fff; }
 .badge-estado.entregado { background-color: #4CAF50; }
 .badge-estado.pendiente { background-color: #FF9800; }
+.badge-estado.asignado { background-color: #7E57C2; }
 .badge-estado.en-camino { background-color: #2196F3; }
 .badge-estado.cancelado { background-color: #f44336; }
 
 .badge-rol { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: #fff; }
 .badge-rol.administrador { background-color: #6A1B9A; }
-.badge-rol.vendedor { background-color: #00838F; }
+.badge-rol.operadora { background-color: #00838F; }
+.badge-rol.repartidor { background-color: #EF6C00; }
 .badge-rol.cliente { background-color: #558B2F; }
 .badge-stock-critico { background-color: #dc3545; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
 

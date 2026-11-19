@@ -39,8 +39,11 @@ const Navigation = () => {
           {sesion && sesion.tipoUsuario === 'Administrador' && (
             <Button as={Link} to="/admin" variant="outline-light" size="sm">Panel Admin ({sesion.nombre})</Button>
           )}
-          {sesion && sesion.tipoUsuario === 'Vendedor' && (
-            <Button as={Link} to="/vendedor" variant="outline-light" size="sm">Panel Vendedor ({sesion.nombre})</Button>
+          {sesion && sesion.tipoUsuario === 'Operadora' && (
+            <Button as={Link} to="/operadora" variant="outline-light" size="sm">Despacho ({sesion.nombre})</Button>
+          )}
+          {sesion && sesion.tipoUsuario === 'Repartidor' && (
+            <Button as={Link} to="/repartidor" variant="outline-light" size="sm">Mis entregas ({sesion.nombre})</Button>
           )}
           {sesion && sesion.tipoUsuario === 'Cliente' && (
             <span className="text-white small">Hola, {sesion.nombre}</span>

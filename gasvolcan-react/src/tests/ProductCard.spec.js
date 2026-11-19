@@ -1,4 +1,5 @@
 // Pruebas de COMPONENTE: props, renderizado condicional y eventos (mocks de Jasmine)
+import { prepararCache } from '../test-utils';
 import React from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,7 +10,7 @@ const renderTarjeta = (producto, onAgregar = () => {}) =>
   render(<MemoryRouter><ProductCard producto={producto} onAgregar={onAgregar} /></MemoryRouter>);
 
 describe('Componente ProductCard', () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => { localStorage.clear(); prepararCache(); });
   afterEach(() => cleanup());
 
   it('props: muestra nombre, categoría y precio recibidos', () => {

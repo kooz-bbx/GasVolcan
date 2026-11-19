@@ -1,8 +1,9 @@
 // =========================================================
 // datos.js - Distribuidora de Gas El Volcán
-// Datos iniciales (semillas) y constantes de la aplicación.
-// Las semillas se copian a localStorage la primera vez (ver
-// baseDatos.js); desde ahí se leen y modifican con el CRUD.
+// Constantes de la aplicación (regiones, roles, estados, etc.).
+// Los productos, categorías, usuarios y camiones REALES viven en la base de datos
+// del backend (los carga DataInitializer.java la primera vez).
+// CATEGORIAS_SEMILLA y PRODUCTOS_SEMILLA son datos de ejemplo que solo usan las pruebas.
 // =========================================================
 
 export const CATEGORIAS_SEMILLA = [
@@ -69,35 +70,6 @@ export const PRODUCTOS_SEMILLA = [
   },
 ];
 
-// Cuentas de prueba precargadas (administrador y vendedor)
-export const USUARIOS_SEMILLA = [
-  {
-    run: '111111111',
-    nombre: 'Benjamín',
-    apellidos: 'Alegria Rojas',
-    correo: 'admin@duoc.cl',
-    contrasena: 'admin123',
-    region: 'Región de Ñuble',
-    comuna: 'Chillán',
-    direccion: 'Oficina Central 100, Chillán',
-    tipoUsuario: 'Administrador',
-  },
-  {
-    run: '222222222',
-    nombre: 'Natalia',
-    apellidos: 'Varela López',
-    correo: 'vendedor@duoc.cl',
-    contrasena: 'vende123',
-    region: 'Región de Ñuble',
-    comuna: 'Chillán',
-    direccion: 'Sucursal Norte 200, Chillán',
-    tipoUsuario: 'Vendedor',
-  },
-];
-
-// Precios por tipo de cilindro (CLP) del formulario de "Pedido Rápido"
-export const PRECIOS_CILINDRO = { '5kg': 14000, '11kg': 20000, '15kg': 31000 };
-
 // Dominios de correo permitidos (regla de negocio de la rúbrica)
 export const DOMINIOS_PERMITIDOS = ['duoc.cl', 'profesor.duoc.cl', 'gmail.com'];
 
@@ -116,10 +88,11 @@ export const REGIONES = [
   },
 ];
 
-export const ROLES = ['Cliente', 'Vendedor', 'Administrador'];
+export const ROLES = ['Cliente', 'Administrador', 'Operadora', 'Repartidor'];
 
 export const ETIQUETAS_ESTADO = {
   pendiente: 'Pendiente',
+  asignado: 'Asignado',
   'en-camino': 'En camino',
   entregado: 'Entregado',
   cancelado: 'Cancelado',
